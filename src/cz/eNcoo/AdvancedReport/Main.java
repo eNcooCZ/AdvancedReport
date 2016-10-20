@@ -8,8 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -18,17 +20,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 	Server server = Bukkit.getServer();
 
+	@Override
 	public void onEnable() {
 		server.getPluginManager().registerEvents(new Listeners(), this);
 		getCommand("report").setExecutor(this);
 	}
 
+	@Override
 	public void onDisable() {
 
 	}
 
 	private void reportPlayerGUI(Player reporter, Player reported) {
-		Inventory inv = server.createInventory(null, 54, "Â§cÂ§lReporting Â§8Â§lÂ» Â§eÂ§l" + reported.getName());
+		Inventory inv = server.createInventory(null, 54, "§8§lReport menu");
 		// Chat vulgarism
 		ItemStack cv = new ItemStack(Material.EMPTY_MAP);
 		ItemMeta cvMeta = cv.getItemMeta();
@@ -75,45 +79,55 @@ public class Main extends JavaPlugin {
 		// Skull of reported player
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-		skullMeta.setDisplayName("Â§7You reporting Â§c" + reported.getName() + "Â§7.");
+		skullMeta.setDisplayName("§7You reporting §c" + reported.getName() + "§7.");
 		skullMeta.setOwner(reported.getName());
 		skull.setItemMeta(skullMeta);
 
-		cvMeta.setDisplayName("Â§2Â§lENÂ§8Â§lÂ» Â§cÂ§lChat vulgarism");
-		cvLore.add("Â§2Â§lCZÂ§8Â§lÂ» Â§cÂ§lNadavky v chatu");
+		cvMeta.setDisplayName("§2§lEN§8§l» §c§lChat vulgarism");
+		cvLore.add("§2§lCZ§8§l» §c§lNadavky v chatu");
+		cvMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		cvMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		cvMeta.setLore(cvLore);
 		cv.setItemMeta(cvMeta);
 
-		aobMeta.setDisplayName("Â§2Â§lENÂ§8Â§lÂ» Â§cÂ§lAbuse of bugs");
-		aobLore.add("Â§2Â§lCZÂ§8Â§lÂ» Â§cÂ§lZneuzivani bugu");
+		aobMeta.setDisplayName("§2§lEN§8§l» §c§lAbuse of bugs");
+		aobLore.add("§2§lCZ§8§l» §c§lZneuzivani bugu");
+		aobMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		aobMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		aobMeta.setLore(aobLore);
 		aob.setItemMeta(aobMeta);
 
-		hMeta.setDisplayName("Â§2Â§lENÂ§8Â§lÂ» Â§cÂ§lHacking/Cheating");
-		hLore.add("Â§2Â§lCZÂ§8Â§lÂ» Â§cÂ§lHacky/Podvadeni");
+		hMeta.setDisplayName("§2§lEN§8§l» §c§lHacking/Cheating");
+		hLore.add("§2§lCZ§8§l» §c§lHacky/Podvadeni");
+		hMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		hMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		hMeta.setLore(hLore);
 		h.setItemMeta(hMeta);
 
-		ggMeta.setDisplayName("Â§2Â§lENÂ§8Â§lÂ» Â§cÂ§lGriefing game");
-		ggLore.add("Â§2Â§lCZÂ§8Â§lÂ» Â§cÂ§lKazi hru");
+		ggMeta.setDisplayName("§2§lEN§8§l» §c§lGriefing game");
+		ggLore.add("§2§lCZ§8§l» §c§lKazi hru");
+		ggMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		ggMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		ggMeta.setLore(ggLore);
 		gg.setItemMeta(ggMeta);
 
-		ltaMeta.setDisplayName("Â§2Â§lENÂ§8Â§lÂ» Â§cÂ§lLong-term AFK");
-		ltaLore.add("Â§2Â§lCZÂ§8Â§lÂ» Â§cÂ§lDlouhodoba neaktivita");
+		ltaMeta.setDisplayName("§2§lEN§8§l» §c§lLong-term AFK");
+		ltaLore.add("§2§lCZ§8§l» §c§lDlouhodoba neaktivita");
+		ltaMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		ltaMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		ltaMeta.setLore(ltaLore);
 		lta.setItemMeta(ltaMeta);
 
-		mfuMeta.setDisplayName("Â§7Most frequently used.");
+		mfuMeta.setDisplayName("§7Most frequently used.");
 		mfu.setItemMeta(mfuMeta);
 
-		fuMeta.setDisplayName("Â§7Frequently used.");
+		fuMeta.setDisplayName("§7Frequently used.");
 		fu.setItemMeta(fuMeta);
 
-		luMeta.setDisplayName("Â§7Less used.");
+		luMeta.setDisplayName("§7Less used.");
 		lu.setItemMeta(luMeta);
 
-		barrierMeta.setDisplayName("Â§7Quit");
+		barrierMeta.setDisplayName("§7Quit");
 		barrier.setItemMeta(barrierMeta);
 
 		inv.setItem(4, skull);
@@ -134,9 +148,10 @@ public class Main extends JavaPlugin {
 		inv.setItem(42, fu);
 		inv.setItem(44, lu);
 
-		reported.openInventory(inv);
+		reporter.openInventory(inv);
 	}
 
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("report")) {
 			if (sender instanceof Player) {
@@ -146,10 +161,11 @@ public class Main extends JavaPlugin {
 						reportPlayerGUI(player, server.getPlayer(args[0]));
 						return true;
 					} else {
-						player.sendMessage("Â§4Â§lErrorÂ§8Â§lÂ» Â§7Player Â§c" + args[0] + " Â§7is not online.");
+						player.sendMessage("§4§lError§8§l» §7Player §c" + args[0] + " §7is not online.");
+						return true;
 					}
 				}
-				player.sendMessage("Â§4Â§lErrorÂ§8Â§lÂ» Â§7Try Â§c/report help Â§7for help.");
+				player.sendMessage("§4§lError§8§l» §7Try §c/report help §7for help.");
 				return true;
 			}
 			sender.sendMessage("Error > This command is only for ingame use.");
