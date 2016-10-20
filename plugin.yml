@@ -1,0 +1,6 @@
+name: AdvancedReport
+main: cz.eNcoo.AdvancedReport.Main
+version: 0.1
+authors: [eNcoo, devcore.cz]
+commands:
+  report:
